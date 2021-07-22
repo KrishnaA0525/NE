@@ -1,0 +1,18 @@
+<div class="">
+    <h2>Welcome to Next Education</h2>
+    <h4> Login </h4>
+    <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <form #loginForm="ngForm" (ngSubmit)="submitLogin(loginForm)">
+        <div class="form-group">
+            <label for="username" class="control-label">Username*</label>
+            <input type="text" id="username" class="form-control" ngModel name="username"
+                #username="ngModel" required>
+
+            <label for="password" class="control-label">Password*</label>
+            <input type="text" id="password" class="form-control" ngModel name="password" #password="ngModel" required>
+
+            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+
+        </div>
+    </form>
+</div>

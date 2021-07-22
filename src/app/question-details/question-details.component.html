@@ -1,0 +1,25 @@
+<div class="row" *ngIf="question">
+    <div class="col-lg-12"><h5>Question Details</h5></div>
+
+    <div class="col-lg-12">{{question.id}}. {{question.questionText}}</div>
+
+    <div class="col-lg-2"><b>Options:</b></div>
+    <div class="col-lg-10"><span *ngFor="let option of question.options">{{option}}, </span></div>
+
+    <div class="col-lg-2"><b>Correct Answer:</b></div>
+    <div class="col-lg-10">{{question.correctAnswer}}</div>
+    
+    <div class="col-lg-2"><b>Author:</b></div>
+    <div class="col-lg-10">{{question.author}}</div>
+
+    <div class="col-lg-12"><h6>Stats</h6></div>
+
+    <div class="col-lg-2"><b>Last Asked:</b></div>
+    <div class="col-lg-10">{{question.stats.lastAskedDate | date}}</div>
+
+    <div class="col-lg-2"><b>Asked Count:</b></div>
+    <div class="col-lg-10">{{question.stats.askedCount}}</div>
+
+    <div class="col-lg-2"><b>Answered correctly:</b></div>
+    <div class="col-lg-10">{{question.stats.crctAnsdPerc}}%</div>
+</div>
