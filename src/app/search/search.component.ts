@@ -1,3 +1,4 @@
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,7 +7,21 @@ import { QuestionsService } from '../services/questions.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  animations: [
+    trigger("searchResultTgr", [
+      transition("void => *", [
+        query(":enter", [
+          style({ opacity: 0 }),
+          stagger("200ms", [
+            style({ opacity: 0, transform: "translateX(-50px)" }),
+            animate("500ms ease-out")
+          ])
+        ],
+          { optional: true })
+      ])
+    ])
+  ]
 })
 export class SearchComponent implements OnInit {
 
@@ -19,11 +34,13 @@ export class SearchComponent implements OnInit {
 
   searchQuestion(searchForm: NgForm) {
     this.searchResults = [];
-    this.questionService.searchQuestions(searchForm.value.question).subscribe(
-      questions => {
-        this.searchResults = questions;
-      }
-    );
+    if (searchForm.value.question) {
+      this.questionService.searchQuestions(searchForm.value.question).subscribe(
+        questions => {
+          this.searchResults = questions;
+        }
+      );
+    }
   }
 
   showQuestionDetails(questionId: number) {

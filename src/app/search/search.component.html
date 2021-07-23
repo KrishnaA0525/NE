@@ -7,9 +7,9 @@
     </div>
 </form>
 
-<ng-template [ngIf]="searchResults.length > 0">
+<div *ngIf="searchResults.length > 0" [@searchResultTgr]="searchResults.length">
     <h3>Search Results</h3>
     <div class="question-info" *ngFor="let question of searchResults">
         <span (click)="showQuestionDetails(question.id)">{{question.id}}. {{question.questionText}}</span>
     </div>
-</ng-template>
+</div>
