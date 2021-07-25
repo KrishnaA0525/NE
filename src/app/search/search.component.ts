@@ -2,6 +2,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Question } from '../model/question.model';
 import { QuestionsService } from '../services/questions.service';
 
 @Component({
@@ -25,7 +26,7 @@ import { QuestionsService } from '../services/questions.service';
 })
 export class SearchComponent implements OnInit {
 
-  searchResults: any = [];
+  searchResults: Question[] = [];
 
   constructor(private questionService: QuestionsService, private router: Router, private activatedRoute: ActivatedRoute) { }
 

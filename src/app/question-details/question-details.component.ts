@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
+import { Question } from '../model/question.model';
 import { QuestionsService } from '../services/questions.service';
 
 @Component({
@@ -9,12 +11,12 @@ import { QuestionsService } from '../services/questions.service';
 })
 export class QuestionDetailsComponent implements OnInit {
 
-  question: any;
+  question!: Question;
 
   constructor(private activatedRoute: ActivatedRoute, private questionService: QuestionsService) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(
+    /* this.activatedRoute.params.subscribe(
       (params: Params) => {
         const questionId = +params["id"];
         this.questionService.getQuestionDetails(questionId).subscribe(
@@ -22,6 +24,16 @@ export class QuestionDetailsComponent implements OnInit {
             this.question = questionResp;
           }
         );
+      }
+    ); */
+
+    this.activatedRoute.params.pipe(switchMap(
+      (params: Params) => {
+        return this.questionService.getQuestionDetails(+params["id"]);
+      }
+    )).subscribe(
+      questionResp => {
+        this.question = questionResp;
       }
     );
   }
